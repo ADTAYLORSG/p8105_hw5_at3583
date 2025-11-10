@@ -13,4 +13,17 @@ knitr::opts_chunk$set(
     message = FALSE, 
     warning = FALSE
 )
+library(tidyverse)
+library(broom)
+library(purrr)
+```
+
+# Problem 1 -- Birthday Simulation
+
+```{r}
+#generate birthday simulation function
+birthday_sim = function(n) {
+  birthdays = sample(1:365, size = n, repplace = TRUE)
+  any(duplicated(birthdays))
+}
 ```
