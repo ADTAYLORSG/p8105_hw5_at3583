@@ -1,0 +1,16 @@
+---
+title: "p8105_hw3_at3583"
+author: "Alexandria D.Taylor,"
+date: "`r format(Sys.Date())`"
+output: github_document
+---
+
+**<small><em>Overview: This homework applied .</small></em>**
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE, 
+    warning = FALSE
+)
+```
