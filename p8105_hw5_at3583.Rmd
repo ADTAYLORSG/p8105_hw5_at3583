@@ -213,5 +213,26 @@ knitr::kable(city_summary, caption = "Homicide counts and unsolved cases by city
 ```
 Summary: The dataset includes `r nrow(homicide_df)` homicide records from 50 U.S. cities, with `r ncol(homicide_df)` variables detailing victim demographics (age, sex, race), geographic information, and case outcomes. Each row represents a single homicide incident. Some fields contain missing data -- `r sum(is.na(homicide_df$victim_race))` cases lack recorded victim race—and several disposition categories required recoding to determine whether a case is solved. In this analysis, both *Open/No arrest* and *Closed without arrest* are classified as unsolved.
 
+## Baltimore, MD
 ```{r}
+# filter data to Baltimore
+baltimore_df <- homicide_city |> 
+  filter(city_state == "Baltimore, MD")
+
+# run prop test
+baltimore_test <- prop.test(
+  x = sum(baltimore_df$unsolved),
+  n = nrow(baltimore_df)
+)
+
+# tidy filtered results
+baltimore_summary <- baltimore_test |> 
+  broom::tidy() |> 
+  select(estimate, conf.low, conf.high)
+
+baltimore_summary
+```
+Summary: The estimated proportion of unsolved homicides in Baltimore is r round(baltimore_summary$estimate, 3), with a 95% confidence interval of (r round(baltimore_summary$conf.low, 3), r round(baltimore_summary$conf.high, 3)).
+
+
 ```
