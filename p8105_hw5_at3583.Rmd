@@ -258,3 +258,18 @@ city_prop_tests <- homicide_city %>%
 
 head(city_prop_tests)
 ```
+
+```{r}
+#plot city prop test output
+city_prop_tests %>%
+  ggplot(aes(x = reorder(city_state, estimate), y = estimate)) +
+  geom_point(color = accent_color, size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
+                width = 0.2, color = primary_color) +
+  coord_flip() +
+  labs(
+    title = "Estimated Proportion of Unsolved Homicides by City",
+    x = "City",
+    y = "Proportion Unsolved (95% CI)"
+  ) +
+  theme_minimal(base_size = 12)
