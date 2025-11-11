@@ -233,3 +233,28 @@ baltimore_summary <- baltimore_test |>
 baltimore_summary
 ```
 The estimated proportion of unsolved homicides in Baltimore is **`r round(baltimore_summary$estimate, 3)`**, with a 95% confidence interval of **(`r round(baltimore_summary$conf.low, 3)`, `r round(baltimore_summary$conf.high, 3)`)**.
+
+## City Analysis, prop.test()
+
+```{r}
+# prop.test for each city
+city_prop_tests <- homicide_city %>%
+  group_by(city_state) %>%
+  summarise(
+    total_homicides = n(),
+    unsolved_homicides = sum(unsolved),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    test_result = map2(unsolved_homicides, total_homicides,
+                       ~ prop.test(.x, .y))
+  ) %>%
+  mutate(
+    tidy_result = map(test_result, broom::tidy)
+  ) %>%
+  select(city_state, tidy_result) %>%
+  unnest(tidy_result) %>%
+  select(city_state, estimate, conf.low, conf.high)
+
+head(city_prop_tests)
+```
