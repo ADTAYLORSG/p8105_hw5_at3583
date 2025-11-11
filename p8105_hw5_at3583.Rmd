@@ -160,8 +160,7 @@ power_df |>
   ) +
   theme_minimal()
 ```
-Summary: The probability of rejecting the null hypothesis increases as the true mean (μ) increases. 
-When μ is close to 0, the test seldom rejects the null, indicating low power. As μ becomes larger, the effect becomes more detectable relative to noise, and power rises rapidly toward 1. This illustrates the fundamental principle that  the expected relationship that larger effect sizes yield greater power in hypothesis testing.
+Summary: The probability of rejecting the null hypothesis increases as the true mean (μ) increases. When μ is close to 0, the test seldom rejects the null, indicating low power. As μ becomes larger, the effect becomes more detectable relative to noise, and power rises rapidly toward 1. This illustrates the fundamental principle that  the expected relationship that larger effect sizes yield greater power in hypothesis testing.
 ```{r}
 # plot-estimates dataframe
 estimates_df |>
@@ -180,5 +179,18 @@ estimates_df |>
   ) +
   theme_minimal()
 ```
-Summary:Across all simulated samples, the average estimate of μ̂ closely matches the true mean μ, indicating that the estimator is unbiased. However, when considering only samples where the null hypothesis was rejected, the average μ̂ is inflated above the 
+Summary: Across all simulated samples, the average estimate of μ̂ closely matches the true mean μ, indicating that the estimator is unbiased. However, when considering only samples where the null hypothesis was rejected, the average μ̂ is inflated above the 
 true value. This occurs because under low power, only the more extreme sample means yield produce significant results, introducing selection bias.
+
+# Problem 3 -- Washington Post 
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(broom)
+library(purrr)
+
+# Load and clean homicide data
+homicide_df <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv") |>
+  clean_names()
+```
