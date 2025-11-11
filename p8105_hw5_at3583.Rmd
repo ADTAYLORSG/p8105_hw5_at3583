@@ -193,4 +193,25 @@ library(purrr)
 # Load and clean homicide data
 homicide_df <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv") |>
   clean_names()
+
+# create city_state variable & flag unsolved cases
+homicide_city <- homicide_df |> 
+  mutate(
+    city_state = str_c(city, ", ", state),
+    unsolved = disposition %in% c("Closed without arrest", "Open/No arrest")
+  )
+city_summary <- homicide_city |> 
+  group_by(city_state) |> 
+  summarise(
+    total_homicides = n(),
+    unsolved_homicides = sum(unsolved),
+    .groups = "drop"
+  )
+
+knitr::kable(city_summary, caption = "Homicide counts and unsolved cases by city")
+
+```
+Summary: The dataset includes `r nrow(homicide_df)` homicide records from 50 U.S. cities, with `r ncol(homicide_df)` variables detailing victim demographics (age, sex, race), geographic information, and case outcomes. Each row represents a single homicide incident. Some fields contain missing data -- `r sum(is.na(homicide_df$victim_race))` cases lack recorded victim race—and several disposition categories required recoding to determine whether a case is solved. In this analysis, both *Open/No arrest* and *Closed without arrest* are classified as unsolved.
+
+```{r}
 ```
