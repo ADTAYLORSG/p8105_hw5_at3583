@@ -41,6 +41,12 @@ simulate_results = tibble(
     
   })
 )
+
+#data summary:compute the smallest group size where probability >= 0.5
+threshold_50 <- simulate_results %>%
+  filter(prob_shared_birthday >= 0.5) %>%
+  slice(1) %>%
+  pull(group_size)
 ```
 
 ```{r}
@@ -58,3 +64,7 @@ simulate_results %>%
   ) +
   theme_minimal()
 ```
+
+Summary: The likelihood that two people in a group share the same birthday increases rapidly with group size. Despite there being 365 possible birth dates, the probability exceeds 50% once the group size reaches 
+**`r threshold_50` people**, a counterintuitive result known as the *birthday paradox*. 
+By around **50 individuals**, the chance is nearly certain, making a shared birthday almost guaranteed.
