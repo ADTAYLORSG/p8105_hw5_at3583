@@ -232,7 +232,4 @@ baltimore_summary <- baltimore_test |>
 
 baltimore_summary
 ```
-Summary: The estimated proportion of unsolved homicides in Baltimore is r round(baltimore_summary$estimate, 3), with a 95% confidence interval of (r round(baltimore_summary$conf.low, 3), r round(baltimore_summary$conf.high, 3)).
-
-
-```
+The estimated proportion of unsolved homicides in Baltimore is **`r round(baltimore_summary$estimate, 3)`**, with a 95% confidence interval of **(`r round(baltimore_summary$conf.low, 3)`, `r round(baltimore_summary$conf.high, 3)`)**.
